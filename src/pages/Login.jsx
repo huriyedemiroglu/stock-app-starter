@@ -3,7 +3,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Formik } from "formik";
+import { Formik,Form } from "formik";
+import {TextField} from "@mui/material/TextField"
 import LockIcon from "@mui/icons-material/Lock";
 import image from "../assets/result.svg";
 
@@ -14,7 +15,7 @@ import useAuthCalls from "../hooks/useAuthCalls";
 
 const Login = () => {
   const { login } = useAuthCalls();
-
+  const loginSchema={}
   return (
     <Container maxWidth="lg">
       <Grid
@@ -56,12 +57,26 @@ const Login = () => {
             initialValues={{ email: "", password: "" }}
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
-              login(values);
+              //todo login(values)  POST request
+              //todo navigate
+           
               actions.resetForm();
               actions.setSubmitting(false);
             }}
-            component={(props) => <LoginForm {...props} />}
-          ></Formik>
+            >
+            {(values, handleChange,handleBlur,error)=>{
+
+              <Form>
+
+              </Form>
+            }}
+          
+
+          </Formik>
+
+
+
+
           <Box sx={{ textAlign: "center", mt: 2 }}>
             <Link to="/register">Do you have not an account?</Link>
           </Box>
