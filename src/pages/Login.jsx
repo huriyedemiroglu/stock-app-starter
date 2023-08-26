@@ -3,19 +3,21 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { Formik,Form } from "formik";
-import {TextField} from "@mui/material/TextField"
 import LockIcon from "@mui/icons-material/Lock";
 import image from "../assets/result.svg";
-
 import { Link } from "react-router-dom";
+import { Formik,Form } from "formik"
 import LoginForm, { loginSchema } from "../components/LoginForm";
 
 import useAuthCalls from "../hooks/useAuthCalls";
 
+
+
 const Login = () => {
+  
   const { login } = useAuthCalls();
-  const loginSchema={}
+  
+  
   return (
     <Container maxWidth="lg">
       <Grid
@@ -39,7 +41,7 @@ const Login = () => {
               backgroundColor: "secondary.light",
               m: "auto",
               width: 40,
-              height: 40,
+              height: 4,
             }}
           >
             <LockIcon size="30" />
@@ -58,21 +60,14 @@ const Login = () => {
             validationSchema={loginSchema}
             onSubmit={(values, actions) => {
               //todo login(values)  POST request
+              login(values)
               //todo navigate
            
               actions.resetForm();
               actions.setSubmitting(false);
             }}
-            >
-            {(values, handleChange,handleBlur,error)=>{
-
-              <Form>
-
-              </Form>
-            }}
-          
-
-          </Formik>
+            component={(props)=> <LoginForm {...props} />}
+            ></Formik>
 
 
 

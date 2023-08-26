@@ -16,7 +16,7 @@ const useAuthCalls = () => {
   const navigate = useNavigate();
 
   const BASE_URL = "https://10001.fullstack.clarusway.com/";
-
+//url'in sonuna slashtan sonra redoc yazarsan gerekli bilgileri gorursun
   const login = async (userInfo) => {
     dispatch(fetchStart());
     try {
