@@ -19,11 +19,11 @@ function Dashboard() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             STOCK APP
           </Typography>
-          {currentUser && (
+          {/* {currentUser && (
             <Button color="inherit" onClick={() => logout()}>
               Logout
             </Button>
-          )}
+          )} */}
         </Toolbar>
       </AppBar>
     </Box>
