@@ -6,7 +6,7 @@ import { getSuccess } from "../features/stockSlice";
 import { fetchFail } from "../features/stockSlice";
 import useAxios from './useAxios';
 
-const useStockCall = () => {
+const useStockCalls = () => {
   const dispatch =useDispatch()
   const {token}=useSelector((state)=>state.auth)
   const {axiosWithToken}=useAxios()
@@ -40,6 +40,6 @@ const useStockCall = () => {
   return {getStockData, deleteStockData}
 }
 
-export default useStockCall
+export default useStockCalls
 
 
