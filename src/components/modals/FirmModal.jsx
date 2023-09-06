@@ -6,14 +6,14 @@ import { Button, TextField } from "@mui/material";
 import useStockCalls from "../../hooks/useStockCalls";
 
 export default function FirmModal({ open, setOpen, info, setInfo }) {
-  const { postFirm, putFirm } = useStockCalls();
+  const {postStockData,putStockData } = useStockCalls();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (info.id) {
-      putFirm(info);
+      putStockData("firms",info);
     } else {
-      postFirm(info);
+      postStockData("firms",info);
     }
     setOpen(false);
     setInfo({});
@@ -82,7 +82,7 @@ export default function FirmModal({ open, setOpen, info, setInfo }) {
               value={info?.image || ""}
               onChange={handleChange}
             />
-            <Button type="submit" variant="contained" size="large" onSubmit={handleSubmit} >
+            <Button type="submit" variant="contained" size="large" >
               Submit Firm
             </Button>
           </Box>
