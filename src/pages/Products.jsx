@@ -3,55 +3,58 @@ import useStockCalls from "../hooks/useStockCalls";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
-import ProductCard from "../components/ProductCard";
 import ProductModal from "../components/modals/ProductModal";
-import { flexCenter } from "../styles/globalStyle";
-import ProductModal from "../components/modals/ProductModal";
-
-
+import MultiSelect from "../components/MultiSelect";
+import ProductsTable from "../components/tables/ProductsTable";
 
 const Products = () => {
-  const { getFirms } = useStockCalls();
-  const { products} = useSelector((state) => state.stock);
+  const { getProCatBrands } = useStockCalls();
+  const { products, brands } = useSelector((state) => state.stock);
   const [open, setOpen] = useState(false);
   const [info, setInfo] = useState({});
-  
-  
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
   useEffect(() => {
-    getProducts();
+    getProCatBrands();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Box>
       <Typography variant="h4" color="error" mb={4}>
-      Products
+        Products
       </Typography>
 
-      <Button
-        variant="contained"
-        onClick={() => {
-          setInfo({});
-          setOpen(true);
-        }}
-      >
-        New Firm
+      <Button variant="contained" onClick={() => setOpen(true)}>
+        New Product
       </Button>
 
-      <ProductModalModal open={open} setOpen={setOpen} info={info} setInfo={setInfo} />
+      <MultiSelect
+        data1={brands}
+        data2={products}
+        key1="name"
+        key2="brand"
+        firstNames={selectedBrands}
+        setFirstNames={setSelectedBrands}
+        setSecondNames={setSelectedProducts}
+      />
 
-      {firms?.length > 0 && (
-        <Grid container sx={flexCenter} mt={3}>
-          {products?.map((product) => (
-            <Grid item key={product.id}>
-              <ProductCard product={product} setOpen={setOpen} setInfo={setInfo} />
-            </Grid>
-          ))}
-        </Grid>
+      <ProductModal
+        open={open}
+        setOpen={setOpen}
+        info={info}
+        setInfo={setInfo}
+      />
+
+      {products?.length > 0 && (
+        <ProductsTable
+          selectedProducts={selectedProducts}
+          selectedBrands={selectedBrands}
+        />
       )}
     </Box>
   );
 };
 
-export default Firms;
+export default Products;
