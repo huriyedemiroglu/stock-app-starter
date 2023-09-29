@@ -41,3 +41,7 @@ export const arrowStyle = {
   cursor: "pointer",
   "&:hover": { color: "red" },
 };
+export const btnStyle = {
+  cursor: "pointer",
+  "&:hover": { color: "red" },
+}

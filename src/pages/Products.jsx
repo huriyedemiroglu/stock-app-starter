@@ -1,60 +1,136 @@
-import { useEffect, useState } from "react";
-import useStockCalls from "../hooks/useStockCalls";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import { useSelector } from "react-redux";
-import ProductModal from "../components/modals/ProductModal";
-import MultiSelect from "../components/MultiSelect";
-import ProductsTable from "../components/tables/ProductsTable";
+import { Button } from "@mui/material"
+import Typography from "@mui/material/Typography"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+
+import ProductModal from "../components/modals/ProductModal"
+import useStockCalls from "../hooks/useStockCalls"
+
+import * as React from "react"
+import Box from "@mui/material/Box"
+import { DataGrid, GridActionsCellItem, GridToolbar } from "@mui/x-data-grid"
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
+import { btnStyle } from "../styles/globalStyle"
 
 const Products = () => {
-  const { getProCatBrands } = useStockCalls();
-  const { products, brands } = useSelector((state) => state.stock);
-  const [open, setOpen] = useState(false);
-  const [info, setInfo] = useState({});
-  const [selectedBrands, setSelectedBrands] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const { deleteStockData, getProCatBrand } = useStockCalls()
+  const { products } = useSelector((state) => state.stock)
+  const [open, setOpen] = useState(false)
+
+  const [info, setInfo] = useState({
+    category_id: "",
+    brand_id: "",
+    name: "",
+  })
+
+  const handleOpen = () => setOpen(true)
+
+  const handleClose = () => setOpen(false)
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "#",
+      minWidth: 40,
+      maxWidth: 70,
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      headerAlign: "center",
+      align: "center",
+      flex: 3,
+      minWidth: 150,
+    },
+    {
+      field: "brand",
+      headerName: "Brand",
+      minWidth: 150,
+      headerAlign: "center",
+      align: "center",
+      flex: 2,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      type: "number",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
+      flex: 2,
+    },
+
+    {
+      field: "stock",
+      headerName: "Stock",
+      minWidth: 100,
+      headerAlign: "center",
+      align: "center",
+      flex: 0.7,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      type: "number",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 50,
+      flex: 1,
+      renderCell: ({ id }) => (
+        <GridActionsCellItem
+          icon={<DeleteForeverIcon />}
+          label="Delete"
+          sx={btnStyle}
+          onClick={() => deleteStockData("products", id)}
+        />
+      ),
+    },
+  ]
 
   useEffect(() => {
-    getProCatBrands();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // getStockData("products")
+    // getStockData("categories")
+    // getStockData("brands")
+
+    //! Promise All
+    getProCatBrand()
+  }, []) // eslint-disable-line
 
   return (
-    <Box>
-      <Typography variant="h4" color="error" mb={4}>
+    <div>
+      <Typography variant="h4" color="error" mb={3}>
         Products
       </Typography>
 
-      <Button variant="contained" onClick={() => setOpen(true)}>
+      <Button variant="contained" onClick={handleOpen}>
         New Product
       </Button>
 
-      <MultiSelect
-        data1={brands}
-        data2={products}
-        key1="name"
-        key2="brand"
-        firstNames={selectedBrands}
-        setFirstNames={setSelectedBrands}
-        setSecondNames={setSelectedProducts}
-      />
-
       <ProductModal
         open={open}
-        setOpen={setOpen}
+        handleClose={handleClose}
         info={info}
         setInfo={setInfo}
       />
 
-      {products?.length > 0 && (
-        <ProductsTable
-          selectedProducts={selectedProducts}
-          selectedBrands={selectedBrands}
+      <Box sx={{ width: "100%", marginTop: "1rem" }}>
+        <DataGrid
+          autoHeight
+          rows={products}
+          columns={columns}
+          pageSize={10}
+          disableRowSelectionOnClick
+          slots={{ toolbar: GridToolbar }}
+          sx={{
+            boxShadow: 4,
+          }}
         />
-      )}
-    </Box>
-  );
-};
+      </Box>
+    </div>
+  )
+}
 
-export default Products;
+export default Products
