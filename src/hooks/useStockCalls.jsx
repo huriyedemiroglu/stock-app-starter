@@ -10,7 +10,7 @@ import {
 import useAxios from "./useAxios";
 import { toastSuccessNotify, toastErrorNotify } from "../helper/ToastNotify";
 
-const useStockCalls = () => {
+const useStockCall = () => {
   const dispatch = useDispatch();
   const { axiosWithToken } = useAxios();
 
@@ -160,4 +160,4 @@ const useStockCalls = () => {
   };
 };
 
-export default useStockCalls;
+export default useStockCall;

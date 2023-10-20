@@ -8,11 +8,11 @@ import Select from "@mui/material/Select"
 import { modalStyle } from "../../styles/globalStyle"
 import TextField from "@mui/material/TextField"
 import { Button } from "@mui/material"
-import useStockCall from "../../hooks/useStockCalls"
+import useStockCalls from "../../hooks/useStockCalls"
 import { useSelector } from "react-redux"
 
 export default function ProductModal({ open, handleClose, info, setInfo }) {
-  const { postStockData } = useStockCall()
+  const { postStockData } = useStockCalls()
   const { categories, brands } = useSelector((state) => state.stock)
 
   const handleChange = (e) => {
