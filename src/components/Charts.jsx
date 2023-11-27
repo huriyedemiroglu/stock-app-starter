@@ -33,8 +33,16 @@ const Charts = () => {
         </Card>
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
-        
-       
+        <Card sx={{ p: 2 }}>
+          <Title>Total Purchases</Title>
+          <LineChart
+            index="date"
+            data={purchasesData}
+            categories={["purchases"]}
+            colors={["red"]}
+            valueFormatter={dataFormatter}
+          />
+        </Card>
       </Grid>
     </Grid>
   )
