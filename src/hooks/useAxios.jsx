@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const BASE_URL = "https://10001.fullstack.clarusway.com/";
+const BASE_URL = " https://21110.fullstack.clarusway.com/";
 
 //* Axios Instance for Public API Request
 const axiosPublic = axios.create({

@@ -1,3 +1,5 @@
+https://stock-app-starter.netlify.app/
+
 # Redux Toolkit Sample
 
 ## `Setup`

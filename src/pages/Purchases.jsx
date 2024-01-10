@@ -12,7 +12,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import PurchaseModal from "../components/modals/PurchaseModal"
 
 const Purchases = () => {
-  const { getStockData, deleteStockData, getProCatBrand } = useStockCall()
+  const { getStockData, deleteStockData, getProCatBrands } = useStockCall()
   const { purchases } = useSelector((state) => state.stock)
   const [open, setOpen] = useState(false)
 
@@ -27,7 +27,7 @@ const Purchases = () => {
   const handleClose = () => setOpen(false)
 
   useEffect(() => {
-    getProCatBrand()
+    getProCatBrands()
     getStockData("purchases")
     getStockData("firms")
   }, []) // eslint-disable-line
